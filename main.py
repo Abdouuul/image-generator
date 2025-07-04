@@ -2,23 +2,15 @@ from diffusers import StableDiffusionPipeline
 import torch
 
 # Load model (first time download may be large ~4GB)
-
-# pipe = StableDiffusionPipeline.from_pretrained(
-#     "stabilityai/sdxl-turbo",
-#     torch_dtype=torch.float16,
-#     variant="fp16",
-#     # safety_checker=None  
-# )
-
 pipe = StableDiffusionPipeline.from_pretrained(
     "SG161222/Realistic_Vision_V5.1_noVAE",
     torch_dtype=torch.float16,
-    variant="fp16",
-)
+    safety_checker=None  
+).to("cuda")
 
-pipe = pipe.to("cuda" if torch.cuda.is_available() else "cpu")
+while True:
+    prompt = input('What would you like to create? \n')
+    image = pipe(prompt).images[0]
 
-prompt = input('What would you like to create? \n')
-image = pipe(prompt).images[0]
-
-image.save("output.png")
+    image.save("output.png")
+    image.show()
