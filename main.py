@@ -3,13 +3,13 @@ import torch
 
 # Load model (first time download may be large ~4GB)
 pipe = StableDiffusionPipeline.from_pretrained(
-    "stabilityai/sdxl-turbo",
+    "SG161222/Realistic_Vision_V5.1_noVAE",
     torch_dtype=torch.float16,
-    variant="fp16",
-)
-pipe = pipe.to("cuda" if torch.cuda.is_available() else "cpu")
+).to("cuda")
 
-prompt = input('What would you like to create? \n')
-image = pipe(prompt).images[0]
+while True:
+    prompt = input('What would you like to create? \n')
+    image = pipe(prompt).images[0]
 
-image.save("output.png")
+    image.save("output.png")
+    image.show()
