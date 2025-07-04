@@ -5,7 +5,6 @@ import torch
 pipe = StableDiffusionPipeline.from_pretrained(
     "SG161222/Realistic_Vision_V5.1_noVAE",
     torch_dtype=torch.float16,
-    safety_checker=None  
 ).to("cuda")
 
 while True:
